@@ -3,10 +3,10 @@ import * as React from 'react';
 import { DivContainer, DivRow } from './styles';
 import { FormCrearProducto } from '../../components/FormCrearProducto';
 import { ListaReservas } from '../../components/ListarProductos';
-// import { PaginadorProductos } from '../../components/PaginadorProductos';
 import { Producto } from '../../models/Producto';
 import { useEffect } from 'react';
 import { Reserva } from '../../models/Reserva';
+import { Usuario } from 'app/feature/Home/models/Usuario';
 
 interface GestionProductosProps {
   productos: Array<Producto>;
@@ -16,42 +16,41 @@ interface GestionProductosProps {
   cantidadTotalProducto: number;
   crearReserva: (reserva: Reserva) => void;
   reservas: Array<Reserva>;
-  obtenerReservas: (uid:number) => void;
+  obtenerReservas: (uid: number) => void;
+  usuario: Usuario;
+  isLogged: boolean;
 }
 
 export const GestionProductos: React.FC<GestionProductosProps> = ({
-  // agregarNuevoProducto,
-  // productos,
-  // listarProductos,
-  // eliminarProducto,
-  // cantidadTotalProducto,
   crearReserva,
   reservas,
   obtenerReservas,
+  usuario,
+  isLogged,
 }) => {
   useEffect(() => {
-    obtenerReservas(12)
-  }, [obtenerReservas]);
-  console.log(reservas);
-  
+    if (isLogged) {
+      obtenerReservas(usuario.id);
+    }
+  }, [obtenerReservas, isLogged, usuario]);
+
   return (
     <DivContainer>
-      <DivRow>
-        <FormCrearProducto
-          onSubmit={crearReserva}
-          formTitle="Crear Reserva"
-        />
-      </DivRow>
-      <DivRow>
-        <ListaReservas
-          reservas={reservas}
-          // onClickEliminarProducto={eliminarProducto}
-        />
-        {/* <PaginadorProductos
-          cantidadTotalProductos={cantidadTotalProducto}
-          onClickCambiarPagina={listarProductos}
-        /> */}
-      </DivRow>
+      {isLogged ? (
+        <>
+          <DivRow>
+            <FormCrearProducto
+              onSubmit={crearReserva}
+              formTitle="Crear Reserva"
+            />
+          </DivRow>
+          <DivRow>
+            <ListaReservas reservas={reservas} />
+          </DivRow>
+        </>
+      ) : (
+        <p>No está logueado</p>
+      )}
     </DivContainer>
   );
 };

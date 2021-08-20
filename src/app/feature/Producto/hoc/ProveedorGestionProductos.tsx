@@ -3,14 +3,14 @@ import {
   eliminarProducto,
   listarProductosAsync,
   crearReserva,
-  obtenerReservasAsync
+  obtenerReservasAsync,
 } from 'app/core/redux/acciones/productos/ProductosAcciones';
 import { EstadoGeneral } from 'app/core/redux/modelo/EstadoGeneral';
 import { GestionProductos } from '../containers/GestionProductos';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state: EstadoGeneral) => {
-  return state.productos;
+  return { ...state.productos, ...state.usuario };
 };
 
 export const ProveedorGestionProductos = connect(mapStateToProps, {
@@ -18,5 +18,5 @@ export const ProveedorGestionProductos = connect(mapStateToProps, {
   agregarNuevoProducto,
   eliminarProducto,
   crearReserva,
-  obtenerReservas: obtenerReservasAsync
+  obtenerReservas: obtenerReservasAsync,
 })(GestionProductos);

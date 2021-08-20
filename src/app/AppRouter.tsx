@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { HomeRouter } from 'app/feature/Home/HomeRouter';
-import MainPage from 'app/Main';
+// import MainPage from 'app/Main';
 import { NavigationHeader } from 'app/shared/components/NavigationHeader';
 import { ProductoRouter } from 'app/feature/Producto/ProductoRouter';
 
@@ -10,7 +10,9 @@ export const AppRouter = () => {
     <BrowserRouter>
       <NavigationHeader />
       <Switch>
-        <Route path="/" exact component={MainPage} />
+        <Route exact path="/">
+          <Redirect to="/usuario" />
+        </Route>
         <Route path="/usuario" component={HomeRouter} />
         <Route path="/reservas" component={ProductoRouter} />
       </Switch>

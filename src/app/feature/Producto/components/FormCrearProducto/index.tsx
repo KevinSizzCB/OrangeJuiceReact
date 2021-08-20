@@ -7,13 +7,15 @@ import { Input } from 'app/shared/components/Input';
 import { SpanError } from './styles';
 import { useFormik } from 'formik';
 import { Reserva } from '../../models/Reserva';
+import { useSelector } from 'react-redux';
+import { Usuario } from 'app/feature/Home/models/Usuario';
 
 interface FormValues {
   // title: string;
   // slug: string;
   // body: string;
   cantidad_jugos: string;
-      // uid:number;
+  // uid:number;
 }
 
 interface FormCrearProductoProp {
@@ -21,11 +23,11 @@ interface FormCrearProductoProp {
   disabled?: boolean;
   formTitle: string;
   initialValues?: FormValues;
+  usuario: Usuario;
 }
 
 const validationSchema = Yup.object().shape<FormValues>({
-  cantidad_jugos: Yup.string().required('El campo title es requerido.'),
-  // uid: Yup.string().required('El campo body es requerido.'),
+  cantidad_jugos: Yup.string().required('La cantidad de jugos es requerida.'),
 });
 
 export const FormCrearProducto: React.FC<FormCrearProductoProp> = ({
@@ -35,15 +37,16 @@ export const FormCrearProducto: React.FC<FormCrearProductoProp> = ({
   initialValues = {
     cantidad_jugos: '',
   },
+  usuario,
 }) => {
-  const handleSubmit = async(
+  const handleSubmit = async (
     values: FormValues,
     { resetForm }: FormikHelpers<FormValues>
   ) => {
     await onSubmit({
       cantidad_jugos: Number(values.cantidad_jugos),
-      fecha_creacion: new Date(),//,.toISOString(),
-      uid: 12
+      fecha_creacion: new Date().toISOString(),
+      uid: usuario.id,
     });
     resetForm();
   };
@@ -66,27 +69,7 @@ export const FormCrearProducto: React.FC<FormCrearProductoProp> = ({
       {formik.touched.cantidad_jugos && formik.errors.cantidad_jugos && (
         <SpanError>{formik.errors.cantidad_jugos}</SpanError>
       )}
-      {/* <Input
-        disabled={disabled}
-        name="slug"
-        placeholder="Slug"
-        value={formik.values.slug}
-        onChange={formik.handleChange}
-      />
-      {formik.touched.slug && formik.errors.slug && (
-        <SpanError>{formik.errors.slug}</SpanError>
-      )}
-      <Input
-        disabled={disabled}
-        name="body"
-        placeholder="Body"
-        value={formik.values.body}
-        onChange={formik.handleChange}
-      />
-      {formik.touched.body && formik.errors.body && (
-        <SpanError>{formik.errors.body}</SpanError>
-      )} */}
-      <Button type="submit">Registrar</Button>
+      <Button type="submit">Crear reserva</Button>
     </form>
   );
 };

@@ -39,16 +39,13 @@ export function eliminarProducto(producto: Producto): TiposAccionesProducto {
 
 export function listarProductosAsync(numeroPagina: number) {
   return function (dispacth: any) {
-    // ProductoRepositorio.consultarPorPagina(
-    //   numeroPagina
-    // ).then((respuesta: any) =>
-    //   dispacth(
-    //     listarProductos(respuesta.data.articles, respuesta.data.articlesCount)
-    //   )
-    // );
-    dispacth(
-      listarProductos([], 1)
-    )
+    ProductoRepositorio.consultarPorPagina(
+      numeroPagina
+    ).then((respuesta: any) =>
+      dispacth(
+        listarProductos(respuesta.data.articles, respuesta.data.articlesCount)
+      )
+    );
   };
 }
 
@@ -62,19 +59,22 @@ export function obtenerReservas(reservas: Reserva[]): TiposAccionesProducto {
 export function obtenerReservasAsync(uid: number) {
   return async function (dispacth: any) {
     ProductoRepositorio.obtenerReservas(uid)
-      .then(({ data }) =>
-        dispacth(obtenerReservas(data))
+      .then(({ data, status }) => {
+        if (status === 200) {
+          dispacth(obtenerReservas(data))
+        }
+      }
       );
   };
 }
 
-export function crearReserva(reserva: Reserva)/* : Promise<TiposAccionesProducto | null> */ {
+export function crearReserva(reserva: Reserva) {
   return async function (dispatch: any) {
-    const { status } = await ProductoRepositorio.crearReserva(reserva);
+    const { status, data } = await ProductoRepositorio.crearReserva(reserva);
     if (status > 200 && status < 202) {
       return dispatch({
         type: CREAR_RESERVA,
-        payload: reserva
+        payload: data
       })
     }
   }

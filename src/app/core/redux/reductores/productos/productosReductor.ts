@@ -40,12 +40,9 @@ export default function (
 
     case CREAR_RESERVA: {
       const reserva = action.payload;
-      console.log("in crear reserva", reserva, { ...state.reservas });
-      const _reservas = state.reservas
-      _reservas.push(reserva)
       return {
         ...state,
-        reservas: _reservas
+        reservas: [...state.reservas, reserva]
       }
     }
 

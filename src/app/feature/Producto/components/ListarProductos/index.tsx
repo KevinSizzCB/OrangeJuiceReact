@@ -8,7 +8,7 @@ export interface ListareservasProps {
 }
 
 export const ListaReservas: React.FC<ListareservasProps> = ({
-  reservas,
+  reservas = [],
 }) => {
   return (
     <Table>
@@ -26,11 +26,14 @@ export const ListaReservas: React.FC<ListareservasProps> = ({
         </tr>
       </thead>
       <tbody>
-        {reservas.map((reserva: any) => {
+        {reservas?.map((reserva: any) => {
           return (
             <tr key={reserva.fecha_creacion.toString()}>
               <td>{reserva.cantidad_jugos}</td>
-              <td>{`${reserva.fecha_creacion?.split('.')[0]?.replace("T", ", hora: ")}`}</td>
+              <td>{`${reserva.fecha_creacion
+                ?.split('.')[0]
+                ?.replace('T', ', hora: ')
+                ?.replace(new RegExp('-', 'g'), '/')}`}</td>
               <td>{`${reserva.precio_total}`}</td>
             </tr>
           );

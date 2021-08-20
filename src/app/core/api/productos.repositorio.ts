@@ -1,4 +1,4 @@
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { axiosIntance } from '../config/AxiosConfig';
 import { Reserva } from '../../feature/Producto/models/Reserva'
 

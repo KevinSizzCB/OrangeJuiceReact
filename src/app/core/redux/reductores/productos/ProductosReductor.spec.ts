@@ -9,6 +9,7 @@ describe('Reductor productos', () => {
     const estadoInicial: EstadoProducto = {
       cantidadTotalProducto: 2,
       productos: [],
+      reservas: []
     };
     const nuevoProducto: Producto = {
       title: 'nuevo',

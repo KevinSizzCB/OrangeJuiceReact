@@ -14,6 +14,7 @@ describe('FormCrearProducto test', () => {
     componentProps = {
       formTitle: 'Form test',
       onSubmit: stub(),
+      usuario: { edad: 10, id: 0, nombre: 'Juan' },
     };
     componentWrapper = render(<FormCrearProducto {...componentProps} />);
   });
@@ -30,68 +31,19 @@ describe('FormCrearProducto test', () => {
       submitButton && fireEvent.click(submitButton);
     });
     const spans = elem.querySelectorAll('span');
-    expect(spans.length).toBe(3);
-    expect(spans[0].textContent).toBe('El campo title es requerido.');
-    expect(spans[1].textContent).toBe('El campo slug es requerido.');
-    expect(spans[2].textContent).toBe('El campo body es requerido.');
-  });
-
-  it('should fail on submit two fields missing', async () => {
-    const elem = componentWrapper.container;
-    const title = elem.querySelector('input[name="title"]');
-    const submitButton = elem.querySelector('button[type="submit"]');
-
-    await wait(() => {
-      title && fireEvent.change(title, setTextEvent('title', 'Lorem'));
-    });
-
-    await wait(() => {
-      submitButton && fireEvent.click(submitButton);
-    });
-    const spans = elem.querySelectorAll('span');
-    expect(spans.length).toBe(2);
-    expect(spans[0].textContent).toBe('El campo slug es requerido.');
-    expect(spans[1].textContent).toBe('El campo body es requerido.');
-  });
-
-  it('should fail on submit two fields missing', async () => {
-    const elem = componentWrapper.container;
-
-    const title = elem.querySelector('input[name="title"]');
-    const slug = elem.querySelector('input[name="slug"]');
-    const submitButton = elem.querySelector('button[type="submit"]');
-
-    await wait(() => {
-      title && fireEvent.change(title, setTextEvent('title', 'Lorem'));
-    });
-    await wait(() => {
-      slug && fireEvent.change(slug, setTextEvent('slug', 'Ipsum'));
-    });
-
-    await wait(() => {
-      submitButton && fireEvent.click(submitButton);
-    });
-    const spans = elem.querySelectorAll('span');
     expect(spans.length).toBe(1);
-    expect(spans[0].textContent).toBe('El campo body es requerido.');
+    expect(spans[0].textContent).toBe('La cantidad de jugos es requerida.');
   });
 
   it('should submit', async () => {
     const elem = componentWrapper.container;
 
-    const title = elem.querySelector('input[name="title"]');
-    const slug = elem.querySelector('input[name="slug"]');
-    const body = elem.querySelector('input[name="body"]');
+    const cantidad_jugos = elem.querySelector('input[name="cantidad_jugos"]');
     const submitButton = elem.querySelector('button[type="submit"]');
 
     await wait(() => {
-      title && fireEvent.change(title, setTextEvent('title', 'Lorem'));
-    });
-    await wait(() => {
-      slug && fireEvent.change(slug, setTextEvent('slug', 'Ipsum'));
-    });
-    await wait(() => {
-      body && fireEvent.change(body, setTextEvent('body', 'Dolor'));
+      cantidad_jugos &&
+        fireEvent.change(cantidad_jugos, setTextEvent('cantidad_jugos', '5'));
     });
 
     await wait(() => {
@@ -100,8 +52,6 @@ describe('FormCrearProducto test', () => {
 
     const formSubmitted = componentProps.onSubmit.firstCall.args[0];
 
-    expect(formSubmitted.title).toBe('Lorem');
-    expect(formSubmitted.slug).toBe('Ipsum');
-    expect(formSubmitted.body).toBe('Dolor');
+    expect(formSubmitted.cantidad_jugos).toBe(5);
   });
 });
