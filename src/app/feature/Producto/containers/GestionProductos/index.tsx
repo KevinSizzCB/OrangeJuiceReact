@@ -32,6 +32,7 @@ export const GestionProductos: React.FC<GestionProductosProps> = ({
     if (isLogged) {
       obtenerReservas(usuario.id);
     }
+    return;
   }, [obtenerReservas, isLogged, usuario]);
 
   return (
@@ -42,6 +43,7 @@ export const GestionProductos: React.FC<GestionProductosProps> = ({
             <FormCrearProducto
               onSubmit={crearReserva}
               formTitle="Crear Reserva"
+              usuario={usuario}
             />
           </DivRow>
           <DivRow>

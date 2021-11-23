@@ -41,6 +41,9 @@ export const FormLogin: React.FC<FormCrearProductoProp> = ({
   },
 }) => {
   const [isRegister, setIsRegister] = React.useState(false);
+
+  // React.useEffect(()=>{}, [isLogg])
+
   const handleSubmit = async (
     values: FormValues,
     { resetForm }: FormikHelpers<FormValues>

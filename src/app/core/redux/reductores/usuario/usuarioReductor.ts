@@ -1,14 +1,17 @@
 import {
   LOGIN_USUARIO,
   TiposAccionesUsuario,
-  SINGUP_USUARIO
+  SINGUP_USUARIO,
+  LOGOUT_USUARIO
 } from '../../acciones/usuario/UsuarioTiposAcciones';
 import { EstadoUsuario } from '../../modelo/EstadoUsuario';
 
 
 const initialState: EstadoUsuario = {
   usuario: { edad: 0, nombre: '', id: 0 },
-  isLogged: false
+  isLogged: false,
+
+  // error: ''
 };
 
 export default function (
@@ -16,6 +19,9 @@ export default function (
   action: TiposAccionesUsuario
 ): EstadoUsuario {
   switch (action.type) {
+
+    // case THROW_ERROR
+
 
     case LOGIN_USUARIO: {
       return {
@@ -30,6 +36,14 @@ export default function (
         ...state,
         usuario: action.payload,
         isLogged: true
+      }
+    }
+
+    case LOGOUT_USUARIO: {
+      return {
+        ...state,
+        isLogged: false,
+        usuario: { edad: 0, nombre: '', id: 0 }
       }
     }
 

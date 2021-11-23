@@ -9,6 +9,7 @@ import { FormLogin } from '../../components/FormLogin';
 interface GestionProductosProps {
   registrarUsuario: (usuario: UsuarioInformación) => void;
   loginUsuario: (usuario: UsuarioCredenciales) => void;
+  logOut: () => void;
   usuario: Usuario;
   isLogged: boolean;
 }
@@ -16,6 +17,7 @@ interface GestionProductosProps {
 export const GestionUsuarios: React.FC<GestionProductosProps> = ({
   registrarUsuario,
   loginUsuario,
+  logOut,
   usuario,
   isLogged = false,
 }) => {
@@ -29,7 +31,10 @@ export const GestionUsuarios: React.FC<GestionProductosProps> = ({
             onRegister={registrarUsuario}
           />
         ) : (
-          <p>{usuario.nombre}</p>
+          <>
+            <p>{usuario.nombre}</p>
+            <button onClick={() => logOut()}>LogOut</button>
+          </>
         )}
       </DivRow>
     </DivContainer>
@@ -39,5 +44,6 @@ export const GestionUsuarios: React.FC<GestionProductosProps> = ({
 GestionUsuarios.propTypes = {
   loginUsuario: PropTypes.func.isRequired,
   registrarUsuario: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
 };

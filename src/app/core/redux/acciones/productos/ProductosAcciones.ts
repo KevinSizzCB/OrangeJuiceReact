@@ -71,7 +71,7 @@ export function obtenerReservasAsync(uid: number) {
 export function crearReserva(reserva: Reserva) {
   return async function (dispatch: any) {
     const { status, data } = await ProductoRepositorio.crearReserva(reserva);
-    if (status > 200 && status < 202) {
+    if (status >= 200 && status < 202) {
       return dispatch({
         type: CREAR_RESERVA,
         payload: data

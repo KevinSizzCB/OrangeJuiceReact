@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape<FormValues>({
   nombre: Yup.string().required('El nombre es requerido.'),
   clave: Yup.string()
     .required('La clave es requerida.')
-    .length(4, 'La clave debe ser mayor a 4.'),
+    .min(4, 'La clave debe ser mayor a 4.'),
 });
 
 export const FormRegister: React.FC<FormCrearProductoProp> = ({

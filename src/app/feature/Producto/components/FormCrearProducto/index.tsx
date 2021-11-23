@@ -7,15 +7,10 @@ import { Input } from 'app/shared/components/Input';
 import { SpanError } from './styles';
 import { useFormik } from 'formik';
 import { Reserva } from '../../models/Reserva';
-import { useSelector } from 'react-redux';
 import { Usuario } from 'app/feature/Home/models/Usuario';
 
 interface FormValues {
-  // title: string;
-  // slug: string;
-  // body: string;
   cantidad_jugos: string;
-  // uid:number;
 }
 
 interface FormCrearProductoProp {

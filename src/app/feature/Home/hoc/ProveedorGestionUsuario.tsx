@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
   loguearUsuario,
   registrarUsuario,
+  logOut,
 } from 'app/core/redux/acciones/usuario/UsuarioAcciones';
 
 const mapStateToProps = (state: EstadoGeneral) => {
@@ -13,4 +14,5 @@ const mapStateToProps = (state: EstadoGeneral) => {
 export const ProveedorGestionUsuario = connect(mapStateToProps, {
   loginUsuario: loguearUsuario,
   registrarUsuario,
+  logOut,
 })(GestionUsuarios);
